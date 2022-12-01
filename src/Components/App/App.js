@@ -11,9 +11,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [{ name: 'Bring Me To Life', artist: 'Evanescence', album: 'Fallen', id: 1 }, { name: 'By Myself', artist: 'Linkkin Park', album: 'Hybrid Theory', id: 2 }, { name: 'Break Stuff', artist: 'Limp Bizkit', album: 'Significant Other', id: 3 }],
-      playlistName: 'My Playlist',
-      playlistTracks: [{ name: 'RISE', artist: 'Glitch Mob', album: 'League of Legends', id: 4 }, { name: 'Time of Dying', artist: 'Three Days Grace', album: 'One-X', id: 5 }, { name: 'Devotion and Desire', artist: 'Bayside', album: 'Bayside', id: 6 }]
+      searchResults: [],
+      playlistName: 'New Playlist',
+      playlistTracks: []
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -44,6 +44,12 @@ class App extends React.Component {
 
   savePlaylist() {
     const trackUris = this.state.playlistTracks.map(track => track.uri);
+    Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
+      this.setState({
+        playlistName: 'New Playlist',
+        playlistTracks: []
+      })
+    })
   }
 
   search(term) {
@@ -55,7 +61,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Ja<span className="highlight">mmm</span>ing</h1>
+        <h1>Al<span className="highlight">tanner</span>tive</h1>
         <div className="App">
           <SearchBar onSearch={this.search} />
           <div className="App-playlist">
